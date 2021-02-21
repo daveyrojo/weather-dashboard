@@ -15,7 +15,7 @@
 
 //global variables
 let weatherSearch = document.querySelector('#searchWeather');
-let timePeriodEl = document.querySelector('#timePeriod')
+let timePeriodEl = document.querySelector('#daysToForecast')
 let forecastEl = document.querySelector('#forecast');
 let cityEl = document.querySelector('#cityChosen');
 let dateEl = document.querySelector('#date');
