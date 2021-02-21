@@ -22,36 +22,64 @@ let dateEl = document.querySelector('#date');
 let humidityEl = document.querySelector('#humidity');
 let windSpeedEl = document.querySelector('#windSpeed');
 let tempEl = document.querySelector('#temp');
+let iconEl = document.querySelector('#icon');
 
 weatherSearch.addEventListener('click', function(){
     let cityName = document.querySelector('#city').value; 
     if (cityName != '' && timePeriodEl.value == '1') {
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + API_KEY)
+        fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + API_KEY)
             .then(function (response) {
-                console.log(response.status);
+                // console.log(response.status);
                 return response.json();
             })
 
             .then(function (data) {
                 console.log(data);
-                //UV index + data icon
-                let city = data.name;
-                let temperature = data.main.temp;
-                let humidity = data.main.humidity;
-                let windSpeed = data.wind.speed;
-                let weatherIcon = data.weather[0].icon;
+                let array = data.list[0];
+                console.log(array)
+                //UV index 
+                let city = data.city.name;
+                let temperature = array.main.temp;
+                let humidity = array.main.humidity;
+                let windSpeed = array.wind.speed;
+                let weatherIcon = array.weather[0].icon;
+                let date = array.dt_txt.split(' ');
+                
+                let reformatDate = date[0].split('-');
+                console.log(reformatDate);
+                // console.log(weatherIcon);
             
-                cityEl.innerText = 'City: ' + city + ' ' + data.sys.country + img;
+                cityEl.innerText = 'Today in: ' + city + ' ' + data.city.country;
+                dateEl.innerText = 'Date: ' + reformatDate[1] + '-' + reformatDate[2] + '-' + reformatDate[0];
+                iconEl.src = 'http://openweathermap.org/img/w/' + weatherIcon + '.png';
                 tempEl.innerText = 'Temperature: ' + temperature + ' F';
                 humidityEl.innerText = 'Humidity: ' + humidity + '%';
-                windSpeedEl.innerText = 'Wind Speed: ' + windSpeed + ' mph';
-
-                
-
+                windSpeedEl.innerText = 'Wind Speed: ' + windSpeed + ' mph';     
             })
     } else if (cityName != '' && timePeriodEl.value == '2') {
         //write function for 5 day forecast
+        fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + API_KEY)
+            .then(function (response) {
+                // console.log(response.status);
+                return response.json();
+            })
 
+            .then(function (data) {
+                // console.log(data);
+
+                let city = data.city.name + ' ' + data.city.country;
+                cityEl.innerText ='City: ' + city; //data.city.name + ' ' + data.city.country;
+                let array = data.list;
+                // console.log(array);
+                    let dayOne = array[0];
+                    let dayTwo = array[8];
+                    let dayThree = array[16];
+                    let dayFour = array[24];
+                    let dayFive = array[32];
+                    
+
+                // console.log(city);
+            })
     } else {
         confirm('City Name Needed to Search');
         return;
