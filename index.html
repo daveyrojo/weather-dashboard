@@ -9,30 +9,40 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <div class='jumbotron' style='margin-bottom:8px; color: rgb(0, 68, 255); background-color: yellow;'>
+    <div class='jumbotron' style='margin-bottom:8px; color: white; background-color: blue;'>
         <h2 class='text-center' style='font-size:50px; font-weight:600;'>Weather Dashboard</h2>
     </div>
 
     <div class='container'>
         <div class='row'>
-            <h3 class='text-left text-primary'>Enter City</h3>
+            <h3 class='text-left text-primary'>Enter City and Days to Forecast</h3>
         </div>
 
         <div class="row form-group form-inline">
-            <button id='searchWeather' class='btn btn-primary'>Search</button>
+            <button id='searchWeather' class='btn btn-primary'>Submit Search</button>
             <input type='text' name='city' id='city' class='form-control' placeholder='City Name'>
+            <label id='timePeriod'>Forecast Period: </label>
+                <select id="daysToForeCast">
+                    <option value='1'> Today </option>
+                    <option value='2'>5 Day </option> 
+                </select>
             
         </div>
 
-        <div id="oneDay" class='row'>
-            
+        <div id="forecast" class='column'>
+            <H5>Forecast:</H3>
+                <p id='cityChosen'></p>
+                <p id='date'></p>
+                <p id='temp'></p>
+                <p id='humidity'></p>
+                <p id='windSpeed'></p>
         </div>
         
     </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src='assets/js/config.js'></script>
-    <script src='assets/js/jquery.js'></script>
+    <!-- <script src='assets/js/jquery.js'></script> -->
     <script src='assets/js/script.js'></script>
 </body>
 </html>

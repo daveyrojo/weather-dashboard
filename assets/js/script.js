@@ -12,16 +12,21 @@
 
 //need to create variable for city based off of button submit value
 //'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + API_KEY
-// let cityVal = document.querySelector('#city');
 
-//document.querySelector('#city');
-
+//global variables
 let weatherSearch = document.querySelector('#searchWeather');
+let timePeriodEl = document.querySelector('#timePeriod')
+let forecastEl = document.querySelector('#forecast');
+let cityEl = document.querySelector('#cityChosen');
+let dateEl = document.querySelector('#date');
+let humidityEl = document.querySelector('#humidity');
+let windSpeedEl = document.querySelector('#windSpeed');
+let tempEl = document.querySelector('#temp');
 
 weatherSearch.addEventListener('click', function(){
     let cityName = document.querySelector('#city').value; 
-    if (cityName != '') {
-        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + API_KEY)
+    if (cityName != '' && timePeriodEl === 'Today') {
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + API_KEY)
             .then(function (response) {
                 console.log(response.status);
                 return response.json();
@@ -29,6 +34,18 @@ weatherSearch.addEventListener('click', function(){
 
             .then(function (weather) {
                 console.log(weather);
+                //city name, date, icon representing weather, temp, humidity, wind speed, UV index
+                let city = weather.name;
+                let temperature = weather.main.temp;
+                let humidity = weather.main.humidity;
+                let windSpeed = weather.wind.speed;
+                cityEl.innerText = 'City: ' + city;
+                tempEl.innerText = 'Temperature: ' + temperature + ' F';
+                humidityEl.innerText = 'Humidity: ' + humidity + '%';
+                windSpeedEl.innerText = 'Wind Speed: ' + windSpeed + ' mph';
+
+                
+
             })
     } else {
         confirm('City Name Needed to Search');
