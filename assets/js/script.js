@@ -25,21 +25,23 @@ let tempEl = document.querySelector('#temp');
 
 weatherSearch.addEventListener('click', function(){
     let cityName = document.querySelector('#city').value; 
-    if (cityName != '' && timePeriodEl === 'Today') {
+    if (cityName != '' && timePeriodEl.value == '1') {
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=imperial&appid=' + API_KEY)
             .then(function (response) {
                 console.log(response.status);
                 return response.json();
             })
 
-            .then(function (weather) {
-                console.log(weather);
-                //city name, date, icon representing weather, temp, humidity, wind speed, UV index
-                let city = weather.name;
-                let temperature = weather.main.temp;
-                let humidity = weather.main.humidity;
-                let windSpeed = weather.wind.speed;
-                cityEl.innerText = 'City: ' + city;
+            .then(function (data) {
+                console.log(data);
+                //UV index + data icon
+                let city = data.name;
+                let temperature = data.main.temp;
+                let humidity = data.main.humidity;
+                let windSpeed = data.wind.speed;
+                let weatherIcon = data.weather[0].icon;
+            
+                cityEl.innerText = 'City: ' + city + ' ' + data.sys.country + img;
                 tempEl.innerText = 'Temperature: ' + temperature + ' F';
                 humidityEl.innerText = 'Humidity: ' + humidity + '%';
                 windSpeedEl.innerText = 'Wind Speed: ' + windSpeed + ' mph';
@@ -47,6 +49,9 @@ weatherSearch.addEventListener('click', function(){
                 
 
             })
+    } else if (cityName != '' && timePeriodEl.value == '2') {
+        //write function for 5 day forecast
+
     } else {
         confirm('City Name Needed to Search');
         return;
