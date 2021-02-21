@@ -1,0 +1,1 @@
+const API_KEY = '9047fd95b48c3207edabe682c3c9a6bf';
