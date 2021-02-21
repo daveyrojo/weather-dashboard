@@ -41,7 +41,7 @@ weatherSearch.addEventListener('click', function(){
                 console.log(data);
                 let lat = data.city.coord.lat;
                 let lon = data.city.coord.lon;
-               
+                let uvi;
                 // console.log(lat, lon);
                 fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+ lat + '&lon=' + lon +'&appid=' + API_KEY)
                     .then( function(response){
@@ -93,17 +93,17 @@ weatherSearch.addEventListener('click', function(){
                 // console.log(data);
                 let lat = data.city.coord.lat;
                 let lon = data.city.coord.lon;
-            
+                
                 // console.log(lat, lon);
-                fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + API_KEY)
-                    .then(function (response) {
+                fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+ lat + '&lon=' + lon +'&appid=' + API_KEY)
+                    .then( function(response){
                         return response.json();
                     })
 
                     .then(function (uvData) {
                         console.log(uvData);
                         let uvi = uvData.current.uvi;
-                        if (uvi < 4) {
+                        if (uvi <4) {
                             uvIndex.innerHTML = '<p class="text-success">UV Index: ' + uvi + '</p>'
                         } else if (uvi > 4 && uvi < 7) {
                             uvIndex.innerHTML = '<p class="text-warning"> UV Index: ' + uvi + '</p>'
@@ -131,7 +131,7 @@ weatherSearch.addEventListener('click', function(){
                         '<p> Temp: ' + dayOneTemp + 'F</p>' + 
                         '<p>Humidity: ' + dayOneHum + '%</p>' +
                         '<p>Wind Speed: ' + dayOneWS + ' mph</p>' +
-                        '<img src="http://openweathermap.org/img/w/"' + dayOneIcon +'>';
+                        '<img src="http://openweathermap.org/img/w/' + dayOneIcon +'.png">';
                     
                     document.getElementById('day1').append(firstDayEl);
 
@@ -150,7 +150,7 @@ weatherSearch.addEventListener('click', function(){
                     '<p> Temp: ' + dayTwoTemp + 'F</p>' +
                     '<p>Humidity: ' + dayTwoHum + '%</p>' +
                     '<p>Wind Speed: ' + dayTwoWS + ' mph</p>' +
-                    '<img src="http://openweathermap.org/img/w/"' + dayTwoIcon + '>';
+                    '<img src="http://openweathermap.org/img/w/' + dayTwoIcon + '.png">';
 
                 document.getElementById('day2').append(secondDayEl);
 
@@ -169,7 +169,7 @@ weatherSearch.addEventListener('click', function(){
                             '<p> Temp: ' + dayThreeTemp + 'F</p>' +
                             '<p>Humidity: ' + dayThreeHum + '%</p>' +
                             '<p>Wind Speed: ' + dayThreeWS + ' mph</p>' +
-                            '<img src="http://openweathermap.org/img/w/"' + dayThreeIcon + '>';
+                            '<img src="http://openweathermap.org/img/w/' + dayThreeIcon + '.png">';
 
                 document.getElementById('day3').append(thirdDayEl);
 
@@ -189,7 +189,7 @@ weatherSearch.addEventListener('click', function(){
                             '<p> Temp: ' + dayFourTemp + 'F</p>' +
                             '<p>Humidity: ' + dayFourHum + '%</p>' +
                             '<p>Wind Speed: ' + dayFourWS + ' mph</p>' +
-                            '<img src="http://openweathermap.org/img/w/"' + dayFourIcon + '>';
+                            '<img src="http://openweathermap.org/img/w/' + dayFourIcon + '.png">';
 
                 document.getElementById('day4').append(fourthDayEl);
 
@@ -210,7 +210,7 @@ weatherSearch.addEventListener('click', function(){
                     '<p> Temp: ' + dayFiveTemp + 'F</p>' +
                     '<p>Humidity: ' + dayFiveHum + '%</p>' +
                     '<p>Wind Speed: ' + dayFiveWS + ' mph</p>' +
-                    '<img src="http://openweathermap.org/img/w/' + dayFiveIcon + '">';
+                    '<img src="http://openweathermap.org/img/w/' + dayFiveIcon + '.png">';
 
                 document.getElementById('day5').append(fifthDayEl);
                     
