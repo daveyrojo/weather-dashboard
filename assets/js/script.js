@@ -41,7 +41,7 @@ weatherSearch.addEventListener('click', function(){
                 console.log(data);
                 let lat = data.city.coord.lat;
                 let lon = data.city.coord.lon;
-                let uvi;
+               
                 // console.log(lat, lon);
                 fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+ lat + '&lon=' + lon +'&appid=' + API_KEY)
                     .then( function(response){
@@ -91,6 +91,26 @@ weatherSearch.addEventListener('click', function(){
 
             .then(function (data) {
                 // console.log(data);
+                let lat = data.city.coord.lat;
+                let lon = data.city.coord.lon;
+            
+                // console.log(lat, lon);
+                fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + API_KEY)
+                    .then(function (response) {
+                        return response.json();
+                    })
+
+                    .then(function (uvData) {
+                        console.log(uvData);
+                        let uvi = uvData.current.uvi;
+                        if (uvi < 4) {
+                            uvIndex.innerHTML = '<p class="text-success">UV Index: ' + uvi + '</p>'
+                        } else if (uvi > 4 && uvi < 7) {
+                            uvIndex.innerHTML = '<p class="text-warning"> UV Index: ' + uvi + '</p>'
+                        } else {
+                            uvIndex.innerHTML = '<p class="text-danger"> UV Index: ' + uvi + '</p>'
+                        }
+                    })
 
                 let city = data.city.name + ' ' + data.city.country;
                 cityEl.innerText ='City: ' + city; //data.city.name + ' ' + data.city.country;
@@ -190,7 +210,7 @@ weatherSearch.addEventListener('click', function(){
                     '<p> Temp: ' + dayFiveTemp + 'F</p>' +
                     '<p>Humidity: ' + dayFiveHum + '%</p>' +
                     '<p>Wind Speed: ' + dayFiveWS + ' mph</p>' +
-                    '<img src="http://openweathermap.org/img/w/"' + dayFiveIcon + '>';
+                    '<img src="http://openweathermap.org/img/w/' + dayFiveIcon + '">';
 
                 document.getElementById('day5').append(fifthDayEl);
                     
