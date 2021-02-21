@@ -9,7 +9,7 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <div class='jumbotron' style='margin-bottom:8px; color: white; background-color: gray;'>
+    <div class='jumbotron' style='margin-bottom:8px; color: rgb(0, 68, 255); background-color: yellow;'>
         <h2 class='text-center' style='font-size:50px; font-weight:600;'>Weather Dashboard</h2>
     </div>
 
@@ -18,15 +18,21 @@
             <h3 class='text-left text-primary'>Enter City</h3>
         </div>
 
-        <div class="row form-group">
+        <div class="row form-group form-inline">
+            <button id='searchWeather' class='btn btn-primary'>Search</button>
             <input type='text' name='city' id='city' class='form-control' placeholder='City Name'>
-            <button id='submitWeather' class='btn btn-primary'>Submit Weather Search</button>
+            
+        </div>
+
+        <div id="oneDay" class='row'>
+            
         </div>
         
     </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src='assets/js/config.js'></script>
+    <script src='assets/js/jquery.js'></script>
     <script src='assets/js/script.js'></script>
 </body>
 </html>

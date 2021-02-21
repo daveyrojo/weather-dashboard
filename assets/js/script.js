@@ -10,12 +10,31 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-fetch('http://maps.openweathermap.org/maps/2.0/weather/TA2/{1}/{1}/{1}&opacity=0.9&fill_bound=true&appid={9047fd95b48c3207edabe682c3c9a6bf}')
-    .then(function (response) {
-        console.log(response.status);
-      
-    })
+//need to create variable for city based off of button submit value
+//'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + API_KEY
+// let cityVal = document.querySelector('#city');
 
-    .then(function (data) {
-        console.log(data);
-    });
+//document.querySelector('#city');
+
+let weatherSearch = document.querySelector('#searchWeather');
+
+weatherSearch.addEventListener('click', function(){
+    let cityName = document.querySelector('#city').value; 
+    if (cityName != '') {
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + API_KEY)
+            .then(function (response) {
+                console.log(response.status);
+                return response.json();
+            })
+
+            .then(function (weather) {
+                console.log(weather);
+            })
+    } else {
+        confirm('City Name Needed to Search');
+        return;
+    }
+    
+
+});
+    
