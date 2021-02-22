@@ -14,19 +14,23 @@
     </div>
 
     <div class='container'>
+        <div id='recentSearch' class="text-right text-primary column"><h3>Recent Searches</h3></div>
         <div class='row'>
             <h3 class='text-left text-primary'>Enter City and Days to Forecast</h3>
+            
         </div>
 
         <div class="row form-group form-inline">
-            <button id='searchWeather' class='btn btn-primary'>Submit Search</button>
+            <button  class='btn btn-primary searchWeather'>Submit Search</button>
             <input type='text' name='city' id='city' class='form-control' placeholder='City Name'>
             <label id='timePeriod'>Forecast Period: </label>
                 <select id="daysToForecast">
                     <option value='1'>Today</option>
                     <option value='2'>5 Day </option> 
                 </select>
-            
+            <div>
+                
+            </div>
         </div>
 
         <section id="forecast" class='row'>
