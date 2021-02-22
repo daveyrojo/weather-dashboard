@@ -45,7 +45,7 @@ function searchWeather(cityName) {
                 // console.log(response.status);
                 return response.json();
             })
-
+            //gets lat and long coords for UVI
             .then(function (data) {
                 console.log(data);
                 let lat = data.city.coord.lat;
@@ -60,15 +60,19 @@ function searchWeather(cityName) {
                     .then(function (uvData) {
                         console.log(uvData);
                         let uvi = uvData.current.uvi;
+                        //if uvi is less than 4 uvi number displayed in green
                         if (uvi <4) {
                             uvIndex.innerHTML = '<p class="text-success">UV Index: ' + uvi + '</p>'
-                        } else if (uvi > 4 && uvi < 7) {
+                            //if uvi is 567 display uvi in yellow
+                        } else if (uvi > 4 && uvi < 8) {
                             uvIndex.innerHTML = '<p class="text-warning"> UV Index: ' + uvi + '</p>'
+                            //else display uvi in red
                         } else {
                             uvIndex.innerHTML = '<p class="text-danger"> UV Index: ' + uvi + '</p>'
                         }
                     })
                     console.log(uvi);
+                    //shows 1 day forecast
                 let array = data.list[0];
                 console.log(array)
                 //UV index 
@@ -90,20 +94,22 @@ function searchWeather(cityName) {
                 humidityEl.innerText = 'Humidity: ' + humidity + '%';
                 windSpeedEl.innerText = 'Wind Speed: ' + windSpeed + ' mph';     
             })
+            //if 5 day forecast is selected show 5 day forecast
     } else if (cityName != '' && timePeriodEl.value == '2') {
         //write function for 5 day forecast
         fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&units=imperial&appid=' + API_KEY)
             .then(function (response) {
-                // console.log(response.status);
+                console.log(response.status);
                 return response.json();
             })
 
             .then(function (data) {
-                // console.log(data);
+                console.log(data);
                 let lat = data.city.coord.lat;
                 let lon = data.city.coord.lon;
                 
-                // console.log(lat, lon);
+                console.log(lat, lon);
+                //gets uvi for day 1 of 5 day forecast
                 fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+ lat + '&lon=' + lon +'&appid=' + API_KEY)
                     .then( function(response){
                         return response.json();
@@ -120,11 +126,12 @@ function searchWeather(cityName) {
                             uvIndex.innerHTML = '<p class="text-danger"> UV Index: ' + uvi + '</p>'
                         }
                     })
-
+                //gets city name for 5 day forecast
                 let city = data.city.name + ' ' + data.city.country;
                 cityEl.innerText ='City: ' + city; //data.city.name + ' ' + data.city.country;
                 let array = data.list;
                 console.log(array);
+                //breaksdown data for first day forecast
                     let dayOne = array[0];
                     let dayOneTemp = dayOne.main.temp;
                     let dayOneHum = dayOne.main.humidity;
@@ -135,7 +142,7 @@ function searchWeather(cityName) {
                     let dayOneDate = 'Date: ' + dayOneReformat[1] + '-' + dayOneReformat[2] + '-' + dayOneReformat[0];
 
                     let firstDayEl = document.createElement('DIV');
-
+                    //displayds first day forecast
                     firstDayEl.innerHTML = '<p>' + dayOneDate + '</p>' +
                         '<p> Temp: ' + dayOneTemp + 'F</p>' + 
                         '<p>Humidity: ' + dayOneHum + '%</p>' +
@@ -143,7 +150,7 @@ function searchWeather(cityName) {
                         '<img src="http://openweathermap.org/img/w/' + dayOneIcon +'.png">';
                     
                     document.getElementById('day1').append(firstDayEl);
-
+                    //breaskdown data for day 2
                     let dayTwo = array[8];
                         let dayTwoTemp = dayTwo.main.temp;
                         let dayTwoHum = dayTwo.main.humidity;
@@ -154,7 +161,7 @@ function searchWeather(cityName) {
                         let dayTwoDate = 'Date: ' + dayTwoReformat[1] + '-' + dayTwoReformat[2] + '-' + dayTwoReformat[0];
                     
                         let secondDayEl = document.createElement('DIV');
-
+                    //generates html for day 2 repeat day 3,4 and 5
                         secondDayEl.innerHTML = '<p>' + dayTwoDate + '</p>' +
                     '<p> Temp: ' + dayTwoTemp + 'F</p>' +
                     '<p>Humidity: ' + dayTwoHum + '%</p>' +
@@ -234,18 +241,21 @@ function searchWeather(cityName) {
     
 
 
-
+//function displays search history
 function displaySearch() {
+    //gets most recent search from search hisotry
     let searches = localStorage.getItem('cityName');
-
+    //creates a button for search history
     let searchHistory = document.createElement('button');
-
+    //gives button a class name and styling
     searchHistory.className = 'searchWeather btn btn-primary';
+    //makes keyvalue of local storage the text for history button
     searchHistory.innerText = searches;
+    //starts search function on click 
     searchHistory.addEventListener('click', function(){
         searchWeather(searches);
     });
-
+    //puts search button on page
     recentSearch.appendChild(searchHistory);
 } 
 
