@@ -12,3 +12,7 @@ Responds if search done without a string
 ![weather-dashboard](assets/img/oneday.png)
 ![weather-dashboard](assets/img/5dayforecast.png)
 
+## Deployed Link
+
+https://daveyrojo.github.io/weather-dashboard/
+
