@@ -15,4 +15,5 @@ Responds if search done without a string
 ## Deployed Link
 
 https://daveyrojo.github.io/weather-dashboard/
+https://github.com/daveyrojo/weather-dashboard
 
